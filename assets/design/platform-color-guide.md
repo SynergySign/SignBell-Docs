@@ -1,4 +1,4 @@
-# SignBell 플랫폼 컬러 가이드 (JSX & SCSS 최적화)
+# SignBell 플랫폼 컬러 가이드
 
 ---
 
