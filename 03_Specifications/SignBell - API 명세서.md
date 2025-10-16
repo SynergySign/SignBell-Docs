@@ -1,14 +1,14 @@
-# **API 명세서 - TropiCal**
+# **API 명세서 - SignBell**
 
 | 항목 | 내용                                |
 | :--- |:----------------------------------|
 | **팀명** | SynergeSign                       |
 | **프로젝트명** | SignBell                          |
 | **플랫폼명** | SignBell                          |
-| **문서 버전** | v1.0                              |
+| **문서 버전** | v1.0.1                            |
 | **작성자** | [신동준](https://github.com/sdj3959) |
-| **최종 수정일**| 2025-10-02                        |
-| **Base URL** | `https://localhost:~`             |
+| **최종 수정일**| 2025-10-16                        |
+| **Base URL** | `https://localhost:9000`          |
 | **인증 방식** | JWT Bearer Token (쿠키 전달)          |
 | **응답 형식** | JSON                              |
 
@@ -24,14 +24,8 @@ Authorization: Bearer {token}
 ## API 태그 분류
 
 ### 1. Authentication (인증/회원가입 API)
-### 2. Todo (할 일 API)
-### 3. Schedule (일정 API)
-### 4. Diary (일기 API)
-### 5. BucketList (버킷리스트 API)
-### 6. User Preferences (사용자 선호 설정 통합 관리 API)
-### 7. Terms (약관 및 동의서 조회 API)
-### 8. Holiday (공휴일 조회 API)
-### 9. Admin (관리자 API)
+### 2. MyPage (마이페이지 API)
+### 3. Agreements (필수/선택 약관동의 API)
 
 ---
 
@@ -77,19 +71,88 @@ Authorization: Bearer {token}
 
 ---
 
-## 2. ~ API
+요청하신 형식과 내용을 기반으로 유저 프로필 조회 및 수정 API 문서를 전체 마크다운 형식으로 작성해 드립니다.
 
-### 2.1 ~
-**GET** `/api/v1/~`
+새로운 Base URL Prefix (`/api/my-page`)와 Path Variable (`{userId}`) 구조를 반영했습니다.
 
-~을 반환합니다.
+-----
 
-**Response:**
-```json
-[
-  ~
-]
-```
+## 2\. 사용자 (User)
+
+### 2.1. 내 프로필 조회
+
+- **Endpoint**: `GET /my-page/users/{userId}/profile`
+- **설명**: 현재 로그인한 사용자의 상세 프로필 정보를 조회합니다. `userId`는 현재 인증된 사용자의 ID여야 합니다.
+- **인증**: **필수** (JWT Bearer Token)
+- **요청**: 없음
+- **응답 (200 OK)**:
+    - **Body**: `ApiResponse<UserProfileResponse>`
+    - **JSON 응답 예시**:
+      ```json
+      {
+          "success": true,
+          "message": "프로필 조회 성공",
+          "timestamp": "2025-10-16T17:16:40.4370385",
+          "data": {
+              "nickname": "송민재",
+              "profileImageUrl": "http://k.kakaocdn.net/dn/jnklU/btsPFZKQSrJ/aHNecgxEqPLdnpIVw9ZR0K/img_640x640.jpg",
+              "optionalAgree": false
+          }
+      }
+      ```
+    - **상세 스펙 (`data`)**:
+
+      | 필드 | 타입 | 설명 |
+      |---|---|---|
+      | `nickname` | `String` | 닉네임 |
+      | `profileImageUrl` | `String` | 프로필 이미지 URL (null 가능) |
+      | `optionalAgree` | `Boolean` | 선택 약관 동의 여부 |
+- **오류**:
+    - `401 Unauthorized`: `UNAUTHORIZED` (인증 정보 없음/유효하지 않음)
+    - `403 Forbidden`: `FORBIDDEN` (요청 `userId`와 로그인 사용자 불일치 등 권한 없음)
+    - `404 Not Found`: `USER_NOT_FOUND` (해당 ID의 사용자 정보가 DB에 없음)
+
+### 2.2. 내 프로필 수정
+
+- **Endpoint**: `PATCH /my-page/users/{userId}/profile`
+- **설명**: 현재 로그인한 사용자의 프로필 정보를 수정합니다. `userId`는 현재 인증된 사용자의 ID여야 합니다.
+- **인증**: **필수** (JWT Bearer Token)
+- **요청**:
+    - **Path Parameter**: `userId` (Long, 수정할 사용자 고유 ID (현재 로그인된 사용자))
+    - **Body**: `ApiResponse<UserProfileUpdateRequest>`
+    - **JSON 요청 예시**:
+      ```json
+      {
+          "nickname":"변경된이름",
+          "optionalAgree":true
+      }
+      ```
+- **응답 (200 OK)**:
+    - **Body**: `ApiResponse<UserProfileResponse>` 
+    - **JSON 응답 예시**:
+      ```json
+      {
+          "success": true,
+          "message": "프로필 수정 성공",
+          "timestamp": "2025-10-16T17:19:21.7728209",
+          "data": {
+              "nickname": "변경된이름",
+              "profileImageUrl": "http://k.kakaocdn.net/dn/jnklU/btsPFZKQSrJ/aHNecgxEqPLdnpIVw9ZR0K/img_640x640.jpg",
+              "optionalAgree": true
+          }
+      }
+      ```
+    - **상세 스펙 (`data`)**:
+
+      | 필드                | 타입        | 설명              |
+      |-------------------|-----------|-----------------|
+      | `nickname`        | `String`  | 수정된 닉네임         |
+      | `optionalAgree`   | `Boolean` | 수정된 선택 약관 동의 여부 |
+- **오류**:
+    - `400 Bad Request`: `INVALID_INPUT_VALUE` (요청 Body 유효성 검사 실패)
+    - `401 Unauthorized`: `UNAUTHORIZED` (인증 정보 없음/유효하지 않음)
+    - `403 Forbidden`: `FORBIDDEN` (요청 `userId`와 로그인 사용자 불일치 등 권한 없음)
+    - `404 Not Found`: `USER_NOT_FOUND` (해당 ID의 사용자 정보가 DB에 없음)
 ---
 
 ## 10. Test API
