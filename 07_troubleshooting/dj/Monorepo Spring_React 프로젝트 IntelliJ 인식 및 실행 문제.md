@@ -1,5 +1,8 @@
 ## 트러블슈팅: Monorepo Spring/React 프로젝트 IntelliJ 인식 및 실행 문제
 
+- **작성자:** [신동준](https://github.com/sdj3959)
+
+
 ### 1. 문제 현상
 
 Git 저장소에서 Monorepo (Spring Boot `backend`, React `frontend`) 프로젝트를 클론 또는 Pull 받은 후, IntelliJ IDEA에서 다음과 같은 문제가 발생했습니다.
