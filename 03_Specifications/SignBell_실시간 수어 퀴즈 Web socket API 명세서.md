@@ -6,8 +6,8 @@
 
 * **작성자:** [고동현](https://github.com/rhehdgus8831)
 * **작성일**: 2025-10-21
-* **최종 수정일**: 2025-10-21
-* **문서 버전:** v1.0.1
+* **최종 수정일**: 2025-10-28
+* **문서 버전:** v1.1.0
 
 **대상 독자:**
 
@@ -99,6 +99,7 @@ Authorization: Bearer {jwt_token}
 ```
 
 **Response Fields:**
+
 | 필드 | 타입 | 설명 |
 |------|------|------|
 | `active` | `Boolean` | WebSocket 세션 활성 여부 |
@@ -292,6 +293,7 @@ WebSocket 연결이 끊어질 때 자동으로 처리되는 이벤트입니다.
 ```
 
 **Request Fields:**
+
 | 필드 | 타입 | 필수 | 설명 |
 |------|------|------|------|
 | `isReady` | `Boolean` | ✅ | 준비 상태 (true: 준비완료, false: 준비취소) |
@@ -332,6 +334,7 @@ WebSocket 연결이 끊어질 때 자동으로 처리되는 이벤트입니다.
 ```
 
 **Response Fields:**
+
 | 필드 | 타입 | 설명 |
 |------|------|------|
 | `eventType` | `String` | 이벤트 타입 ("PARTICIPANT_READY_UPDATED") |
@@ -340,23 +343,32 @@ WebSocket 연결이 끊어질 때 자동으로 처리되는 이벤트입니다.
 | `isReady` | `Boolean` | 변경된 준비 상태 |
 | `allReady` | `Boolean` | 모든 참가자 준비 완료 여부 |
 
-**Error Response:**
-- **Topic**: `/user/{userId}/queue/errors`
-
+**방장이 준비 상태 변경 시도 시 (v1.1.0부터 에러 대신 자동 복구):**
 ```json
 {
-   "timestamp": "2025-10-21T14:28:00.123456",
-   "status": 403,
-   "error": "NOT_ALLOWED_READY_FOR_HOST",
-   "detail": "방장은 준비 상태를 변경할 수 없습니다.",
-   "path": "/app/room/participant/ready"
+   "success": true,
+   "message": "참가자의 준비 상태가 변경되었습니다.",
+   "timestamp": "2025-10-28T14:28:00.123456",
+   "data": {
+      "eventType": "PARTICIPANT_READY_UPDATED",
+      "userId": 12344,
+      "nickname": "방장",
+      "isReady": true,
+      "allReady": false
+   }
 }
 ```
 
+**동작 방식 (v1.1.0 변경사항):**
+- 방장이 준비 상태 변경 요청 시 에러를 던지지 않고 자동으로 `isReady: true`로 설정
+- 방장의 레디 상태는 항상 `true`로 유지됨
+- 정상적인 `ReadyStatusResponse` 반환
+
 **Error Cases:**
-- `NOT_ALLOWED_READY_FOR_HOST`: 방장이 준비 상태 변경 시도
 - `PARTICIPANT_NOT_IN_ROOM`: 방에 참여하지 않은 사용자
 - `ROOM_NOT_FOUND`: 존재하지 않는 방
+- `ROOM_ALREADY_STARTED`: 이미 게임이 시작됨
+- `ROOM_ALREADY_FINISHED`: 이미 게임이 종료됨
 
 ---
 
@@ -406,7 +418,7 @@ WebSocket 연결이 끊어질 때 자동으로 처리되는 이벤트입니다.
 
 ---
 
-### 1.2 방으로 돌아가기
+### 2.4 방으로 돌아가기
 **SEND** `/app/room/{gameRoomId}/quiz/return`
 
 게임 종료 후 대기실로 돌아갑니다.
@@ -416,18 +428,17 @@ WebSocket 연결이 끊어질 때 자동으로 처리되는 이벤트입니다.
 
 **Request Body:** 없음
 
-**Success Response:**
-- **Topic**: `/topic/room/{gameRoomId}/quiz/return`
-- **Body**: `ApiResponse<String>`
+**처리 내용 (v1.1.0):**
+1. 방 상태가 `WAITING`인지 확인
+2. 방장이 요청한 경우:
+   - 모든 참가자의 레디 상태를 `false`로 초기화 (방장 제외)
+   - 방장의 레디 상태는 `true`로 자동 설정
+3. 일반 참가자가 요청한 경우:
+   - 본인의 레디 상태만 `false`로 초기화
 
-```json
-{
-   "success": true,
-   "message": "대기실로 돌아갑니다.",
-   "timestamp": "2025-10-21T14:35:00.123456",
-   "data": "RETURN_TO_WAITING"
-}
-```
+**Success Response:**
+- 별도 응답 메시지 없음 (레디 상태만 변경)
+- 프론트엔드에서 버튼 클릭 시 바로 대기실로 이동
 
 **Error Response:**
 - **Topic**: `/user/{userId}/queue/errors`
@@ -435,21 +446,26 @@ WebSocket 연결이 끊어질 때 자동으로 처리되는 이벤트입니다.
 ```json
 {
    "success": false,
-   "message": "게임이 진행 중이 아닙니다.",
-   "timestamp": "2025-10-21T14:35:00.123456",
+   "message": "게임이 아직 진행 중입니다.",
+   "timestamp": "2025-10-28T14:35:00.123456",
    "data": null
 }
 ```
 
 **Error Cases:**
-- `GAME_NOT_IN_PROGRESS`: 게임이 진행 중이 아님
-- `PARTICIPANT_NOT_IN_ROOM`: 방에 참여하지 않은 사용자
+- `GAME_STILL_IN_PROGRESS`: 방 상태가 `WAITING`이 아님
+- `PARTICIPANT_NOT_FOUND`: 방에 참여하지 않은 사용자
+- `ROOM_NOT_FOUND`: 존재하지 않는 방
+
+**성능 최적화 (v1.1.0):**
+- JOIN FETCH를 사용하여 N+1 쿼리 문제 해결
+- 참가자 5명 기준: 30개 쿼리 → 1개 쿼리로 최적화
 
 ---
 
-## 2. Quiz Game Flow API
+## 3. Quiz Game Flow API
 
-### 2.1 정답 도전 신청
+### 3.1 정답 도전 신청
 **SEND** `/app/room/{gameRoomId}/quiz/challenge`
 
 문제에 대한 정답 도전을 신청합니다. (선착순 4명)
@@ -465,6 +481,7 @@ WebSocket 연결이 끊어질 때 자동으로 처리되는 이벤트입니다.
 ```
 
 **Request Fields:**
+
 | 필드 | 타입 | 필수 | 설명 |
 |------|------|------|------|
 | `questionNumber` | `Integer` | ✅ | 도전할 문제 번호 |
@@ -504,7 +521,7 @@ WebSocket 연결이 끊어질 때 자동으로 처리되는 이벤트입니다.
 
 ---
 
-### 2.2 정답 제출
+### 3.2 정답 제출
 **SEND** `/app/room/{gameRoomId}/quiz/answer`
 
 AI 모델이 인식한 수어 단어를 정답으로 제출합니다.
@@ -521,6 +538,7 @@ AI 모델이 인식한 수어 단어를 정답으로 제출합니다.
 ```
 
 **Request Fields:**
+
 | 필드 | 타입 | 필수 | 설명 |
 |------|------|------|------|
 | `questionNumber` | `Integer` | ✅ | 문제 번호 |
@@ -600,6 +618,7 @@ AI 모델이 인식한 수어 단어를 정답으로 제출합니다.
 ```
 
 **Response Fields:**
+
 | 필드 | 타입 | 설명 |
 |------|------|------|
 | `questionNumber` | `Integer` | 현재 문제 번호 |
@@ -652,6 +671,7 @@ AI 모델이 인식한 수어 단어를 정답으로 제출합니다.
 ```
 
 **Response Fields:**
+
 | 필드 | 타입 | 설명 |
 |------|------|------|
 | `eventType` | `String` | 이벤트 타입 ("QUIZ_FINISHED") |
@@ -661,6 +681,7 @@ AI 모델이 인식한 수어 단어를 정답으로 제출합니다.
 | `showReturnButton` | `Boolean` | "방으로 돌아가기" 버튼 표시 여부 |
 
 **RankingInfo Fields:**
+
 | 필드 | 타입 | 설명 |
 |------|------|------|
 | `rank` | `Integer` | 순위 |
@@ -693,6 +714,7 @@ AI 모델이 인식한 수어 단어를 정답으로 제출합니다.
 ```
 
 **Response Fields:**
+
 | 필드 | 타입 | 설명 |
 |------|------|------|
 | `eventType` | `String` | 이벤트 타입 ("PARTICIPANT_JOINED", "PARTICIPANT_LEFT") |
@@ -743,8 +765,6 @@ AI 모델이 인식한 수어 단어를 정답으로 제출합니다.
 
 ### 5.2 정상적인 게임 진행 시나리오
 
-### 4.1 정상적인 게임 진행 시나리오
-
 1. **게임 시작**
    - 방장: `SEND /app/room/{roomId}/quiz/start`
    - 전체: `RECEIVE /topic/room/{roomId}/quiz/start` (GameStartResponse)
@@ -767,123 +787,6 @@ AI 모델이 인식한 수어 단어를 정답으로 제출합니다.
 
 7. **방으로 돌아가기**
    - 참여자: `SEND /app/room/{roomId}/quiz/return`
-   - 전체: `RECEIVE /topic/room/{roomId}/quiz/return`
-
-### 4.2 에러 처리 시나리오
-
-1. **권한 없는 게임 시작**
-   - 일반 참여자: `SEND /app/room/{roomId}/quiz/start`
-   - 해당 사용자: `RECEIVE /user/{userId}/queue/errors` (NOT_ROOM_HOST)
-
-2. **잘못된 문제 번호로 도전**
-   - 참여자: `SEND /app/room/{roomId}/quiz/challenge` (잘못된 questionNumber)
-   - 해당 사용자: `RECEIVE /user/{userId}/queue/errors` (INVALID_QUESTION_NUMBER)
-
----
-
-## 5. 점수 시스템
-
-### 5.1 점수 계산 규칙
-
-**정답 시 점수 (순위별 차등):**
-- 1순위: +100점
-- 2순위: +90점
-- 3순위: +80점
-- 4순위: +70점
-
-**오답 시 점수:**
-- 모든 순위: -50점
-
-### 5.2 순위 결정 기준
-
-1. **1차**: 최종 누적 점수 기준
-2. **2차**: 동점 시 먼저 정답을 맞춘 횟수 우선
-
----
-
-## 6. 에러 코드 정의
-
-### 6.1 인증 관련 에러
-- `UNAUTHORIZED`: 인증되지 않은 사용자
-- `INVALID_TOKEN`: 유효하지 않은 토큰
-- `EXPIRED_TOKEN`: 만료된 토큰
-
-### 6.2 방 관련 에러
-- `ROOM_NOT_FOUND`: 퀴즈 방을 찾을 수 없음
-- `ROOM_FULL`: 방 인원이 가득 참
-- `ROOM_ALREADY_STARTED`: 이미 시작된 방
-- `ROOM_MIN_PARTICIPANTS_NOT_MET`: 최소 인원 부족
-
-### 6.3 참여자 관련 에러
-- `PARTICIPANT_NOT_FOUND`: 참가자를 찾을 수 없음
-- `PARTICIPANT_NOT_IN_ROOM`: 방에 참여하지 않은 사용자
-- `NOT_ROOM_HOST`: 방장 권한이 없음
-
-### 6.4 퀴즈 관련 에러
-- `GAME_NOT_IN_PROGRESS`: 게임이 진행 중이 아님
-- `GAME_STILL_IN_PROGRESS`: 게임이 아직 진행 중
-- `INVALID_QUESTION_NUMBER`: 유효하지 않은 문제 번호
-
-### 6.5 AI/미디어 관련 에러
-- `AI_MODEL_ERROR`: AI 모델 처리 중 오류
-- `AI_MODEL_TIMEOUT`: AI 모델 응답 시간 초과
-- `CAMERA_PERMISSION_REQUIRED`: 카메라 권한이 필요
-
----
-
-## 7. 기술적 요구사항
-
-### 7.1 연결 요구사항
-- **WebSocket 프로토콜**: STOMP over WSS (WebSocket Secure)
-- **인증**: HTTPS 환경에서 Secure HTTP-Only 쿠키 기반 JWT
-- **재연결**: 자동 재연결 지원 필요
-- **하트비트**: 30초 간격 권장
-
-### 7.2 성능 요구사항
-- **연결 시간**: 1초 이내
-- **메시지 전송**: 100ms 이내
-- **동시 접속**: 방당 최대 4명
-- **메시지 크기**: 최대 1MB
-
-### 7.3 보안 요구사항
-- **HTTPS/WSS**: 모든 통신 암호화 필수
-- **CORS**: `https://localhost:5173` 허용
-- **Secure Cookie**: `Secure`, `HttpOnly`, `SameSite=Strict` 플래그 필수
-- **토큰 검증**: 모든 연결 시 JWT 검증
-- **세션 관리**: 중복 접속 방지
-- **메시지 검증**: 모든 STOMP 메시지 유효성 검사
-
----
-
-## 8. 변경 이력
-
-| 버전     | 날짜         | 변경 내용                 | 작성자 |
-|--------|------------|----------------------|-----|
-| v1.0.0 | 2025.10.21 | 초기 WebSocket API 명세서 작성 | 고동현 |
-| v1.0.1 | 2025.10.21 | HTTPS/WSS 보안 요구사항 반영 | 고동현 |
-1. **게임 시작**
-   - 방장: `SEND /app/room/{roomId}/quiz/start`
-   - 전체: `RECEIVE /topic/room/{roomId}/quiz/start` (GameStartResponse)
-
-2. **문제 출제**
-   - 전체: `RECEIVE /topic/room/{roomId}/quiz/question` (NextQuestionResponse)
-
-3. **도전 신청**
-   - 참여자: `SEND /app/room/{roomId}/quiz/challenge`
-   - 전체: `RECEIVE /topic/room/{roomId}/quiz/challenge` (NextChallengerResponse)
-
-4. **정답 제출**
-   - 도전자: `SEND /app/room/{roomId}/quiz/answer`
-   - 전체: `RECEIVE /topic/room/{roomId}/quiz/answer` (AnswerResultResponse)
-
-5. **다음 문제** (2-4 반복)
-
-6. **게임 종료**
-   - 전체: `RECEIVE /topic/room/{roomId}/quiz/result` (GameEndResponse)
-
-7. **방으로 돌아가기**
-   - 참여자: `SEND /app/room/{roomId}/quiz/return`
-   - 전체: `RECEIVE /topic/room/{roomId}/quiz/return`
 
 ### 5.3 연결 해제 및 퇴장 시나리오
 
@@ -902,9 +805,9 @@ AI 모델이 인식한 수어 단어를 정답으로 제출합니다.
    - 일반 참여자: `SEND /app/room/{roomId}/quiz/start`
    - 해당 사용자: `RECEIVE /user/{userId}/queue/errors` (NOT_ROOM_HOST)
 
-2. **방장의 준비 상태 변경 시도**
+2. **방장의 준비 상태 변경 시도 (v1.1.0부터 에러 없음)**
    - 방장: `SEND /app/room/{roomId}/participant/ready`
-   - 해당 사용자: `RECEIVE /user/{userId}/queue/errors` (NOT_ALLOWED_READY_FOR_HOST)
+   - 자동으로 `isReady: true` 설정 후 정상 응답 반환
 
 3. **가득 찬 방 입장 시도**
    - 참가자: `SEND /app/room/{roomId}/join`
@@ -1087,7 +990,7 @@ export default apiClient;
 - `PARTICIPANT_NOT_IN_ROOM`: 방에 참여하지 않은 사용자
 - `PARTICIPANT_ALREADY_IN_ROOM`: 이미 방에 참여 중
 - `NOT_ROOM_HOST`: 방장 권한이 없음
-- `NOT_ALLOWED_READY_FOR_HOST`: 방장은 준비 상태 변경 불가
+- ~~`NOT_ALLOWED_READY_FOR_HOST`: 방장은 준비 상태 변경 불가~~ (v1.1.0부터 제거 - 자동 복구로 변경)
 
 ### 9.4 퀴즈 관련 에러
 - `GAME_NOT_IN_PROGRESS`: 게임이 진행 중이 아님
@@ -1127,7 +1030,8 @@ export default apiClient;
 
 ## 11. 변경 이력
 
-| 버전     | 날짜         | 변경 내용                 | 작성자 |
-|--------|------------|----------------------|-----|
+| 버전 | 날짜 | 변경 내용 | 작성자 |
+|------|------|----------|--------|
 | v1.0.0 | 2025.10.21 | 초기 WebSocket API 명세서 작성 | 고동현 |
 | v1.0.1 | 2025.10.21 | HTTPS/WSS 보안 요구사항 반영 | 고동현 |
+| v1.1.0 | 2025.10.28 | 방장 레디 상태 자동 복구 기능 추가<br>- 방장 레디 요청 시 에러 대신 자동으로 true 설정<br>- `/app/room/{roomId}/quiz/return` API 동작 방식 명시<br>- N+1 쿼리 최적화 (JOIN FETCH 적용)<br>- `NOT_ALLOWED_READY_FOR_HOST` 에러 제거 | 고동현 |

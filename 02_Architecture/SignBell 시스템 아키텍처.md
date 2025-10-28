@@ -220,13 +220,7 @@ graph TB
 - **메시지 브로커 도입**: RabbitMQ/Redis를 통한 WebSocket 스케일 아웃
 - **CDN 배포**: 수어 영상 파일 CDN 배포로 로딩 속도 개선
 
-### 6.3 인프라 개선
-- **CI/CD 파이프라인**: GitHub Actions를 통한 자동 배포
-- **모니터링**: Prometheus + Grafana를 통한 시스템 모니터링
-- **로그 관리**: ELK Stack을 통한 중앙 집중식 로그 관리
-- **컨테이너화**: Docker + Kubernetes를 통한 배포 자동화
-
-### 6.4 보안 강화
+### 6.3 보안 강화
 - **Rate Limiting**: API 요청 제한을 통한 DDoS 방어
 - **입력 검증 강화**: XSS, SQL Injection 방어
 - **정기 보안 감사**: 의존성 취약점 점검 및 업데이트
