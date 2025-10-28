@@ -2,7 +2,7 @@
 
 본 문서는 SignBell 프로젝트의 **핵심 기술 및 버전을 명세**하고, AI/ML 서버(Python/FastAPI)와 주 백엔드(Spring Boot) 환경 간의 **호환성 기준점**을 정의하여 팀 내 개발 표준을 확립하는 문서입니다.
 
-**작성자:** [송민재](https://github.com/songkey06)
+**작성자:** [송민재](https://github.com/songkey06), [고동현](https://github.com/rhehdgus8831)
 
 **문서 버전:** v1.1.0
 
