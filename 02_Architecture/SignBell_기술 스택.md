@@ -74,14 +74,14 @@
 | 소셜 로그인 | ![OAuth2](https://img.shields.io/badge/OAuth2-Kakao-FFCD00?style=flat-square&logo=kakao&logoColor=black) | - | 카카오 등의 외부 인증을 안전하게 처리하는 표준 프로토콜 |
 
 #### 데이터베이스 & ORM
-| 역할 | 기술 | 버전 | 설명 |
-|------|------|------|------|
-| RDBMS | ![MariaDB](https://img.shields.io/badge/MariaDB-11.6-003545?style=flat-square&logo=mariadb&logoColor=white) | 11.6 | 안정성과 성능이 검증된 오픈 소스 관계형 데이터베이스 |
-| ORM | ![Spring Data JPA](https://img.shields.io/badge/Spring_Data_JPA-3.4.1-6DB33F?style=flat-square&logo=spring&logoColor=white) | 3.4.1 | Java 객체와 관계형 데이터를 매핑하여 데이터 접근을 용이하게 함 |
-| 쿼리 빌더 | ![QueryDSL](https://img.shields.io/badge/QueryDSL-5.0.0-0769AD?style=flat-square) | 5.0.0 | 타입 안전성을 보장하며 동적 쿼리를 생성하는 DSL |
-| 테스트 DB | ![H2](https://img.shields.io/badge/H2-2.3.232-0000BB?style=flat-square) | 2.3.232 | 테스트 환경에서 빠르게 사용되는 인메모리 데이터베이스 |
-| 데이터 유효성 | Bean Validation | 3.1.1 | `@NotNull`, `@Size` 등의 어노테이션으로 데이터 입력 유효성 검증 |
-| 데이터 접근 | Spring Data JDBC | 3.5.6 | JPA와 함께 JDBC 기반의 단순하고 직접적인 데이터베이스 접근을 지원 |
+| 역할 | 기술                                                                                                                                           | 버전 | 설명 |
+|------|----------------------------------------------------------------------------------------------------------------------------------------------|------|------|
+| RDBMS | ![MariaDB](https://img.shields.io/badge/MariaDB-11.6-003545?style=flat-square&logo=mariadb&logoColor=white)                                  | 11.6 | 안정성과 성능이 검증된 오픈 소스 관계형 데이터베이스 |
+| ORM | ![Spring Data JPA](https://img.shields.io/badge/Spring_Data_JPA-3.4.1-6DB33F?style=flat-square&logo=spring&logoColor=white)                  | 3.4.1 | Java 객체와 관계형 데이터를 매핑하여 데이터 접근을 용이하게 함 |
+| 쿼리 빌더 | ![QueryDSL](https://img.shields.io/badge/QueryDSL-5.0.0-0769AD?style=flat-square)                                                            | 5.0.0 | 타입 안전성을 보장하며 동적 쿼리를 생성하는 DSL |
+| 테스트 DB | ![H2](https://img.shields.io/badge/H2-2.3.232-0000BB?style=flat-square)                                                                      | 2.3.232 | 테스트 환경에서 빠르게 사용되는 인메모리 데이터베이스 |
+| 데이터 유효성 | Bean Validation                                                                                                                              | 3.1.1 | `@NotNull`, `@Size` 등의 어노테이션으로 데이터 입력 유효성 검증 |
+| 데이터 접근 | ![Spring Data JPA](https://img.shields.io/badge/Spring_Data_JDBC-3.5.6-6DB33F?style=flat-square&logo=spring&logoColor=white) | 3.5.6 | JPA와 함께 JDBC 기반의 단순하고 직접적인 데이터베이스 접근을 지원 |
 
 #### 통신 & 메시징
 | 역할 | 기술 | 버전 | 설명 |
@@ -89,14 +89,14 @@
 | WebSocket | ![WebSocket](https://img.shields.io/badge/WebSocket-STOMP-010101?style=flat-square) | STOMP | Spring에서 STOMP 프로토콜을 사용하여 실시간 메시징 구현 |
 
 #### 개발 도구
-| 역할 | 기술 | 버전 | 설명 |
-|------|------|------|------|
-| 개발 편의 | ![Lombok](https://img.shields.io/badge/Lombok-1.18.30-9A2A13?style=flat-square) | 1.18.30 | Getter, Setter, 생성자 등 반복적인 Java 코드를 어노테이션으로 줄임 |
-| 자동 재시작 | ![DevTools](https://img.shields.io/badge/Spring_Boot_DevTools-3.5.6-6DB33F?style=flat-square) | 3.5.6 | 개발 중 코드 변경 시 애플리케이션을 자동으로 재시작하여 생산성 향상 |
-| 테스트 | ![JUnit 5](https://img.shields.io/badge/JUnit_5-5.10.2-25A165?style=flat-square&logo=junit5&logoColor=white) | 5.10.2 | 백엔드 코드의 단위 및 통합 테스트를 작성하는 프레임워크 |
-| 테스트 Mocking | ![Mockito](https://img.shields.io/badge/Mockito-5.11.0-000000?style=flat-square) | 5.11.0 | 테스트 환경에서 객체의 행위를 가짜로 대체하여 종속성 없이 테스트 |
-| 환경 설정 | spring-dotenv | 4.0.0 | `.env` 파일의 환경 변수를 Spring 환경에 자동 로딩 |
-| 쿼리 로깅 | p6spy | 1.9.1 | 실행되는 SQL 쿼리 및 파라미터를 로깅하여 디버깅을 지원 |
+| 역할 | 기술                                                                                                             | 버전 | 설명 |
+|------|----------------------------------------------------------------------------------------------------------------|------|------|
+| 개발 편의 | ![Lombok](https://img.shields.io/badge/Lombok-1.18.30-9A2A13?style=flat-square)                                | 1.18.30 | Getter, Setter, 생성자 등 반복적인 Java 코드를 어노테이션으로 줄임 |
+| 자동 재시작 | ![DevTools](https://img.shields.io/badge/Spring_Boot_DevTools-3.5.6-6DB33F?style=flat-square)                  | 3.5.6 | 개발 중 코드 변경 시 애플리케이션을 자동으로 재시작하여 생산성 향상 |
+| 테스트 | ![JUnit 5](https://img.shields.io/badge/JUnit_5-5.10.2-25A165?style=flat-square&logo=junit5&logoColor=white)   | 5.10.2 | 백엔드 코드의 단위 및 통합 테스트를 작성하는 프레임워크 |
+| 테스트 Mocking | ![Mockito](https://img.shields.io/badge/Mockito-5.11.0-000000?style=flat-square)                               | 5.11.0 | 테스트 환경에서 객체의 행위를 가짜로 대체하여 종속성 없이 테스트 |
+| 환경 설정 | ![Spring-Dotenv](https://img.shields.io/badge/Spring_Dotenv-4.0.0-000000?style=flat-square&logo=spring-dotenv) | 4.0.0 | `.env` 파일의 환경 변수를 Spring 환경에 자동 로딩 |
+| 쿼리 로깅 | ![P6spy](https://img.shields.io/badge/P6spy-1.9.1-000000?style=flat-square&logo=P6spy)                         | 1.9.1 | 실행되는 SQL 쿼리 및 파라미터를 로깅하여 디버깅을 지원 |
 
 ---
 
