@@ -20,126 +20,127 @@
 
 ## 기술 스택
 
-### Frontend
+### Frontend 기술 스택
 
 #### 언어 & 프레임워크
-| 역할 | 기술 | 버전 | 설명 |
-|------|------|------|------|
-| 언어 | ![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=flat-square&logo=javascript&logoColor=black) | ES6+ | 프론트엔드 개발 언어 |
-| UI 프레임워크 | ![React](https://img.shields.io/badge/React-19.1.1-61DAFB?style=flat-square&logo=react&logoColor=white) | 19.1.1 | 컴포넌트 기반 UI 구축 |
-| 빌드 도구 | ![Vite](https://img.shields.io/badge/Vite-7.1.7-646CFF?style=flat-square&logo=vite&logoColor=white) | 7.1.7 | 빠른 개발 서버 및 프로덕션 빌드 |
+| 역할 | 기술                                                                                                                   | 버전 | 설명 |
+|------|----------------------------------------------------------------------------------------------------------------------|------|------|
+| 언어 | ![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=flat-square&logo=javascript&logoColor=white) | ES6+ | 프론트엔드 개발의 기반 언어 |
+| UI 프레임워크 | ![React](https://img.shields.io/badge/React-19.1.1-61DAFB?style=flat-square&logo=react&logoColor=white)              | 19.1.1 | 컴포넌트 기반으로 사용자 인터페이스를 구축하는 라이브러리 |
+| 빌드 도구 | ![Vite](https://img.shields.io/badge/Vite-7.1.7-646CFF?style=flat-square&logo=vite&logoColor=white)                  | 7.1.7 | 빠르고 가벼운 개발 서버 및 프로덕션 빌드 환경 제공 |
 
 #### 라우팅 & 상태 관리
 | 역할 | 기술 | 버전 | 설명 |
 |------|------|------|------|
-| 라우팅 | ![React Router](https://img.shields.io/badge/React_Router-7.9.4-CA4245?style=flat-square&logo=react-router&logoColor=white) | 7.9.4 | SPA 페이지 라우팅 |
-| 상태 관리 | ![Zustand](https://img.shields.io/badge/Zustand-5.0.8-000000?style=flat-square) | 5.0.8 | 전역 상태 관리 |
+| 라우팅 | ![React Router](https://img.shields.io/badge/React_Router-7.9.4-CA4245?style=flat-square&logo=react-router&logoColor=white) | 7.9.4 | 싱글 페이지 애플리케이션(SPA)에서 페이지 라우팅 관리 |
+| 상태 관리 | ![Zustand](https://img.shields.io/badge/Zustand-5.0.8-000000?style=flat-square) | 5.0.8 | 작고 빠르며 간결한 전역 상태 관리 라이브러리 |
 
 #### 스타일링 & UI
 | 역할 | 기술 | 버전 | 설명 |
 |------|------|------|------|
-| CSS 전처리기 | ![Sass](https://img.shields.io/badge/Sass-1.93.2-CC6699?style=flat-square&logo=sass&logoColor=white) | 1.93.2 | CSS 모듈화 및 변수 관리 |
-| 애니메이션 | ![Framer Motion](https://img.shields.io/badge/Framer_Motion-12.23.24-0055FF?style=flat-square&logo=framer&logoColor=white) | 12.23.24 | UI 애니메이션 및 제스처 |
-| 아이콘 | ![Font Awesome](https://img.shields.io/badge/Font_Awesome-7.1.0-339AF0?style=flat-square&logo=font-awesome&logoColor=white) | 7.1.0 | 아이콘 라이브러리 |
+| CSS 전처리기 | ![Sass](https://img.shields.io/badge/Sass-1.93.2-CC6699?style=flat-square&logo=sass&logoColor=white) | 1.93.2 | CSS의 확장 기능을 통해 코드 모듈화 및 변수 관리를 지원 |
+| 애니메이션 | ![Framer Motion](https://img.shields.io/badge/Framer_Motion-12.23.24-0055FF?style=flat-square&logo=framer&logoColor=white) | 12.23.24 | 선언적 방식으로 복잡한 UI 애니메이션 및 제스처를 쉽게 구현 |
+| 아이콘 | ![Font Awesome](https://img.shields.io/badge/Font_Awesome-7.1.0-339AF0?style=flat-square&logo=font-awesome&logoColor=white) | 7.1.0 | 다양한 웹 아이콘을 제공하는 라이브러리 |
 
 #### 통신 & 실시간
 | 역할 | 기술 | 버전 | 설명 |
 |------|------|------|------|
-| HTTP 클라이언트 | ![Axios](https://img.shields.io/badge/Axios-1.12.2-5A29E4?style=flat-square&logo=axios&logoColor=white) | 1.12.2 | REST API 통신, JWT 토큰 관리 |
-| WebSocket | ![STOMP.js](https://img.shields.io/badge/STOMP.js-7.1.1-000000?style=flat-square) | 7.1.1 | 실시간 양방향 통신 (Spring Boot) |
-| WebSocket | ![Native WebSocket](https://img.shields.io/badge/WebSocket-Native-010101?style=flat-square) | Native | 실시간 양방향 통신 (FastAPI) |
-| 영상 통신 | ![WebRTC](https://img.shields.io/badge/WebRTC-Janus-333333?style=flat-square&logo=webrtc&logoColor=white) | Janus | 실시간 화상 통신 |
+| HTTP 클라이언트 | ![Axios](https://img.shields.io/badge/Axios-1.12.2-5A29E4?style=flat-square&logo=axios&logoColor=white) | 1.12.2 | Promise 기반의 HTTP 클라이언트로 REST API 통신 담당 |
+| WebSocket (BE) | ![STOMP.js](https://img.shields.io/badge/STOMP.js-7.1.1-000000?style=flat-square) | 7.1.1 | Spring Boot의 STOMP 기반 메시징을 처리하는 클라이언트 |
+| WebSocket (AI) | ![Native WebSocket](https://img.shields.io/badge/WebSocket-Native-010101?style=flat-square) | Native | AI 서버(FastAPI)와 직접 양방향 통신하는 기본 웹 기술 |
+| 영상 통신 | ![WebRTC](https://img.shields.io/badge/WebRTC-Janus-333333?style=flat-square&logo=webrtc&logoColor=white) | Janus | 실시간 화상/음성 통신 기능을 구현하는 기술 |
 
 #### 개발 도구
 | 역할 | 기술 | 버전 | 설명 |
 |------|------|------|------|
-| 코드 품질 | ![ESLint](https://img.shields.io/badge/ESLint-9.36.0-4B32C3?style=flat-square&logo=eslint&logoColor=white) | 9.36.0 | JavaScript 코드 린팅 |
-| HTTPS 개발 | ![vite-plugin-mkcert](https://img.shields.io/badge/vite--plugin--mkcert-1.17.9-646CFF?style=flat-square) | 1.17.9 | 로컬 HTTPS 개발 환경 |
+| 코드 품질 | ![ESLint](https://img.shields.io/badge/ESLint-9.36.0-4B32C3?style=flat-square&logo=eslint&logoColor=white) | 9.36.0 | JavaScript/React 코드의 품질을 검사하고 코딩 스타일을 통일 |
+| HTTPS 개발 | ![vite-plugin-mkcert](https://img.shields.io/badge/vite--plugin--mkcert-1.17.9-646CFF?style=flat-square) | 1.17.9 | WebRTC 테스트를 위한 로컬 개발 서버의 HTTPS 설정 간소화 |
 
 ---
 
-### Backend
+### Backend 기술 스택
 
 #### 언어 & 프레임워크
 | 역할 | 기술 | 버전 | 설명 |
 |------|------|------|------|
-| 언어 | ![Java](https://img.shields.io/badge/Java-17-007396?style=flat-square&logo=openjdk&logoColor=white) | 17 | 백엔드 개발 언어 |
-| 프레임워크 | ![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.5.6-6DB33F?style=flat-square&logo=spring-boot&logoColor=white) | 3.5.6 | 엔터프라이즈 애플리케이션 프레임워크 |
+| 언어 | ![Java](https://img.shields.io/badge/Java-17-007396?style=flat-square&logo=openjdk&logoColor=white) | 17 | 엔터프라이즈급 백엔드 개발에 사용되는 LTS 버전 언어 |
+| 프레임워크 | ![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.5.6-6DB33F?style=flat-square&logo=spring-boot&logoColor=white) | 3.5.6 | Spring 기반 애플리케이션을 쉽고 빠르게 구축하는 데 사용 |
 
 #### 보안 & 인증
 | 역할 | 기술 | 버전 | 설명 |
 |------|------|------|------|
-| 보안 프레임워크 | ![Spring Security](https://img.shields.io/badge/Spring_Security-6.4.2-6DB33F?style=flat-square&logo=spring-security&logoColor=white) | 6.4.2 | 인증 및 권한 관리 |
-| 토큰 인증 | ![JWT](https://img.shields.io/badge/JWT-0.12.3-000000?style=flat-square&logo=json-web-tokens&logoColor=white) | 0.12.3 | Access/Refresh Token 관리 |
-| 소셜 로그인 | ![OAuth2](https://img.shields.io/badge/OAuth2-Kakao-FFCD00?style=flat-square&logo=kakao&logoColor=black) | Spring OAuth2 Client | 카카오 소셜 로그인 |
+| 보안 | ![Spring Security](https://img.shields.io/badge/Spring_Security-6.4.2-6DB33F?style=flat-square&logo=spring-security&logoColor=white) | 6.4.2 | 인증(Authentication) 및 권한 부여(Authorization)를 처리하는 프레임워크 |
+| 토큰 인증 | ![JWT](https://img.shields.io/badge/JWT-0.12.3-000000?style=flat-square&logo=json-web-tokens&logoColor=white) | 0.12.3 | 사용자 정보를 안전하게 전달하고 검증하는 Access/Refresh 토큰 표준 |
+| 소셜 로그인 | ![OAuth2](https://img.shields.io/badge/OAuth2-Kakao-FFCD00?style=flat-square&logo=kakao&logoColor=black) | - | 카카오 등의 외부 인증을 안전하게 처리하는 표준 프로토콜 |
 
 #### 데이터베이스 & ORM
 | 역할 | 기술 | 버전 | 설명 |
 |------|------|------|------|
-| RDBMS | ![MariaDB](https://img.shields.io/badge/MariaDB-11.6-003545?style=flat-square&logo=mariadb&logoColor=white) | 11.6 | 프로덕션 데이터베이스 |
-| ORM | ![Spring Data JPA](https://img.shields.io/badge/Spring_Data_JPA-3.4.1-6DB33F?style=flat-square&logo=spring&logoColor=white) | 3.4.1 | JPA 기반 데이터 접근 |
-| 쿼리 빌더 | ![QueryDSL](https://img.shields.io/badge/QueryDSL-5.0.0-0769AD?style=flat-square) | 5.0.0 | 타입 안전 동적 쿼리 생성 |
-| 테스트 DB | ![H2](https://img.shields.io/badge/H2-2.3.232-0000BB?style=flat-square) | 2.3.232 | 인메모리 테스트 데이터베이스 |
+| RDBMS | ![MariaDB](https://img.shields.io/badge/MariaDB-11.6-003545?style=flat-square&logo=mariadb&logoColor=white) | 11.6 | 안정성과 성능이 검증된 오픈 소스 관계형 데이터베이스 |
+| ORM | ![Spring Data JPA](https://img.shields.io/badge/Spring_Data_JPA-3.4.1-6DB33F?style=flat-square&logo=spring&logoColor=white) | 3.4.1 | Java 객체와 관계형 데이터를 매핑하여 데이터 접근을 용이하게 함 |
+| 쿼리 빌더 | ![QueryDSL](https://img.shields.io/badge/QueryDSL-5.0.0-0769AD?style=flat-square) | 5.0.0 | 타입 안전성을 보장하며 동적 쿼리를 생성하는 DSL |
+| 테스트 DB | ![H2](https://img.shields.io/badge/H2-2.3.232-0000BB?style=flat-square) | 2.3.232 | 테스트 환경에서 빠르게 사용되는 인메모리 데이터베이스 |
+| 데이터 유효성 | Bean Validation | 3.1.1 | `@NotNull`, `@Size` 등의 어노테이션으로 데이터 입력 유효성 검증 |
+| 데이터 접근 | Spring Data JDBC | 3.5.6 | JPA와 함께 JDBC 기반의 단순하고 직접적인 데이터베이스 접근을 지원 |
 
-#### 실시간 통신
+#### 통신 & 메시징
 | 역할 | 기술 | 버전 | 설명 |
 |------|------|------|------|
-| WebSocket | ![WebSocket](https://img.shields.io/badge/WebSocket-STOMP-010101?style=flat-square) | Spring WebSocket | 실시간 양방향 통신 |
+| WebSocket | ![WebSocket](https://img.shields.io/badge/WebSocket-STOMP-010101?style=flat-square) | STOMP | Spring에서 STOMP 프로토콜을 사용하여 실시간 메시징 구현 |
 
 #### 개발 도구
 | 역할 | 기술 | 버전 | 설명 |
 |------|------|------|------|
-| 코드 간소화 | ![Lombok](https://img.shields.io/badge/Lombok-1.18.36-BC4521?style=flat-square) | 1.18.36 | 보일러플레이트 코드 제거 |
-| 개발 편의 | ![Spring DevTools](https://img.shields.io/badge/Spring_DevTools-3.5.6-6DB33F?style=flat-square&logo=spring&logoColor=white) | 3.5.6 | 자동 재시작 및 라이브 리로드 |
-| 환경 변수 | ![Spring Dotenv](https://img.shields.io/badge/Spring_Dotenv-4.0.0-6DB33F?style=flat-square) | 4.0.0 | .env 파일 관리 |
-| SQL 로깅 | ![P6Spy](https://img.shields.io/badge/P6Spy-1.9.1-FF6B6B?style=flat-square) | 1.9.1 | SQL 쿼리 로깅 및 디버깅 |
-| 데이터 검증 | ![Bean Validation](https://img.shields.io/badge/Bean_Validation-3.0-6DB33F?style=flat-square) | 3.0 | 입력 데이터 유효성 검증 |
+| 개발 편의 | ![Lombok](https://img.shields.io/badge/Lombok-1.18.30-9A2A13?style=flat-square) | 1.18.30 | Getter, Setter, 생성자 등 반복적인 Java 코드를 어노테이션으로 줄임 |
+| 자동 재시작 | ![DevTools](https://img.shields.io/badge/Spring_Boot_DevTools-3.5.6-6DB33F?style=flat-square) | 3.5.6 | 개발 중 코드 변경 시 애플리케이션을 자동으로 재시작하여 생산성 향상 |
+| 테스트 | ![JUnit 5](https://img.shields.io/badge/JUnit_5-5.10.2-25A165?style=flat-square&logo=junit5&logoColor=white) | 5.10.2 | 백엔드 코드의 단위 및 통합 테스트를 작성하는 프레임워크 |
+| 테스트 Mocking | ![Mockito](https://img.shields.io/badge/Mockito-5.11.0-000000?style=flat-square) | 5.11.0 | 테스트 환경에서 객체의 행위를 가짜로 대체하여 종속성 없이 테스트 |
+| 환경 설정 | spring-dotenv | 4.0.0 | `.env` 파일의 환경 변수를 Spring 환경에 자동 로딩 |
+| 쿼리 로깅 | p6spy | 1.9.1 | 실행되는 SQL 쿼리 및 파라미터를 로깅하여 디버깅을 지원 |
 
 ---
 
-### AI/ML Server
+### AI/ML Server 기술 스택
 
 #### 언어 & 프레임워크
 | 역할 | 기술 | 버전 | 설명 |
 |------|------|------|------|
-| 언어 | ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python&logoColor=white) | 3.10+ | AI/ML 개발 언어 |
-| API 프레임워크 | ![FastAPI](https://img.shields.io/badge/FastAPI-0.110.0-009688?style=flat-square&logo=fastapi&logoColor=white) | 0.110.0 | 비동기 API 서버 |
-| 웹 서버 | ![Uvicorn](https://img.shields.io/badge/Uvicorn-0.29.0-499848?style=flat-square) | 0.29.0 | ASGI 웹 서버 (standard 옵션 포함) |
+| 언어 | ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat-square&logo=python&logoColor=white) | 3.10+ | AI/ML 개발의 기반 언어 |
+| API 프레임워크 | ![FastAPI](https://img.shields.io/badge/FastAPI-0.110.0-009688?style=flat-square&logo=fastapi&logoColor=white) | 0.110.0 | 비동기 처리가 가능한 고성능 AI API 서버 구축 프레임워크 |
+| 웹 서버 | ![Uvicorn](https://img.shields.io/badge/Uvicorn-0.29.0-499848?style=flat-square) | 0.29.0 | ASGI(Asynchronous Server Gateway Interface) 웹 서버 |
 
 #### 보안 & 인증
 | 역할 | 기술 | 버전 | 설명 |
 |------|------|------|------|
-| JWT 인증 | ![python-jose](https://img.shields.io/badge/python--jose-latest-000000?style=flat-square) | latest | JWT 토큰 검증 및 디코딩 (cryptography 포함) |
+| JWT 인증 | ![python-jose](https://img.shields.io/badge/python--jose-latest-000000?style=flat-square) | latest | JWT 토큰의 검증 및 디코딩 처리 (cryptography 필수) |
 
 #### 딥러닝 프레임워크
 | 역할 | 기술 | 버전 | 설명 |
 |------|------|------|------|
-| 딥러닝 | ![PyTorch](https://img.shields.io/badge/PyTorch-2.2.0-EE4C2C?style=flat-square&logo=pytorch&logoColor=white) | 2.2.0 | CNN+BiLSTM+Attention 모델 학습 및 추론 (nn.Module, LSTM, MultiheadAttention, Conv1d) |
+| 딥러닝 | ![PyTorch](https://img.shields.io/badge/PyTorch-2.2.0-EE4C2C?style=flat-square&logo=pytorch&logoColor=white) | 2.2.0 | CNN, BiLSTM, Attention 메커니즘을 사용한 모델 학습 및 추론 |
 
 #### 영상 처리 & 특징 추출
 | 역할 | 기술 | 버전 | 설명 |
 |------|------|------|------|
-| 랜드마크 추출 | ![MediaPipe](https://img.shields.io/badge/MediaPipe-0.10.11-0097A7?style=flat-square) | 0.10.11 | Holistic 모델을 통한 손/얼굴/포즈 랜드마크 추출 (49개 랜드마크 × 3D 좌표) |
-| 영상 처리 | ![OpenCV](https://img.shields.io/badge/OpenCV-4.9.0.80-5C3EE8?style=flat-square&logo=opencv&logoColor=white) | 4.9.0.80 | 비디오 프레임 디코딩, 색상 변환, 영상 스트리밍 처리 |
-| 이미지 처리 | ![Pillow](https://img.shields.io/badge/Pillow-10.3.0-3776AB?style=flat-square) | 10.3.0 | 이미지 처리 보조 라이브러리 |
+| 랜드마크 추출 | ![MediaPipe](https://img.shields.io/badge/MediaPipe-0.10.11-0097A7?style=flat-square) | 0.10.11 | Holistic 모델을 통해 손, 얼굴, 포즈 랜드마크를 추출 |
+| 영상 처리 | ![OpenCV](https://img.shields.io/badge/OpenCV-4.9.0.80-5C3EE8?style=flat-square&logo=opencv&logoColor=white) | 4.9.0.80 | 비디오 스트리밍 처리, 프레임 디코딩 및 색상 변환 담당 |
+| 이미지 처리 | ![Pillow](https://img.shields.io/badge/Pillow-10.3.0-3776AB?style=flat-square) | 10.3.0 | 이미지 파일 입출력 및 처리 보조 라이브러리 |
 
 #### 데이터 처리 & 분석
 | 역할 | 기술 | 버전 | 설명 |
 |------|------|------|------|
-| 수치 계산 | ![NumPy](https://img.shields.io/badge/NumPy-1.26.4-013243?style=flat-square&logo=numpy&logoColor=white) | 1.26.4 | 배열 및 행렬 연산, 좌표 데이터 전처리 및 정규화 |
-| 데이터 분석 | ![Pandas](https://img.shields.io/badge/Pandas-2.2.0-150458?style=flat-square&logo=pandas&logoColor=white) | 2.2.0 | 메타데이터 관리, CSV 파일 읽기/쓰기, 데이터 분할 |
-| 머신러닝 | ![scikit-learn](https://img.shields.io/badge/scikit--learn-1.7.2-F7931E?style=flat-square&logo=scikit-learn&logoColor=white) | 1.7.2 | LabelEncoder, train_test_split, 분류 성능 평가 (accuracy, classification_report, confusion_matrix) |
-| 시각화 | ![Matplotlib](https://img.shields.io/badge/Matplotlib-3.8.0-11557C?style=flat-square) | 3.8.0 | 학습 곡선, 혼동행렬, Attention 가중치 시각화 |
-| 시각화 | ![Seaborn](https://img.shields.io/badge/Seaborn-0.13.0-4C72B0?style=flat-square) | 0.13.0 | 통계 기반 데이터 시각화 (혼동행렬 히트맵) |
-| 진행 표시 | ![tqdm](https://img.shields.io/badge/tqdm-4.66.0-FFC107?style=flat-square) | 4.66.0 | 학습 및 추론 진행률 표시 |
-
-
+| 수치 계산 | ![NumPy](https://img.shields.io/badge/NumPy-1.26.4-013243?style=flat-square&logo=numpy&logoColor=white) | 1.26.4 | 배열 및 행렬 연산을 통한 좌표 데이터의 전처리 및 정규화 |
+| 데이터 분석 | ![Pandas](https://img.shields.io/badge/Pandas-2.2.0-150458?style=flat-square&logo=pandas&logoColor=white) | 2.2.0 | 데이터 파일(CSV 등) 관리, 메타데이터 처리 및 데이터 분할 |
+| 머신러닝 | ![scikit-learn](https://img.shields.io/badge/scikit--learn-1.7.2-F7931E?style=flat-square&logo=scikit-learn&logoColor=white) | 1.7.2 | 데이터 분할, 레이블 인코딩 및 분류 모델 성능 평가 도구 |
+| 시각화 | ![Matplotlib](https://img.shields.io/badge/Matplotlib-3.8.0-11557C?style=flat-square) | 3.8.0 | 모델 학습 곡선, 혼동 행렬 등 정적 시각화 |
+| 시각화 | ![Seaborn](https://img.shields.io/badge/Seaborn-0.13.0-4C72B0?style=flat-square) | 0.13.0 | 통계 기반 데이터 시각화 및 혼동 행렬 히트맵 생성 |
+| 진행 표시 | ![tqdm](https://img.shields.io/badge/tqdm-4.66.0-FFC107?style=flat-square) | 4.66.0 | 학습, 추론 등 반복 작업의 진행률을 시각적으로 표시 |
 
 #### 실시간 통신
 | 역할 | 기술 | 버전 | 설명 |
 |------|------|------|------|
-| WebSocket | ![WebSockets](https://img.shields.io/badge/WebSockets-11.0.3-010101?style=flat-square) | 11.0.3 | WebSocket 클라이언트 및 테스트 |
-| HTTP 클라이언트 | ![httpx](https://img.shields.io/badge/httpx-0.27.0-0096D6?style=flat-square) | 0.27.0 | 비동기 HTTP 통신 및 테스트 |
+| WebSocket | ![WebSockets](https://img.shields.io/badge/WebSockets-11.0.3-010101?style=flat-square) | 11.0.3 | WebSocket 클라이언트 및 서버 구현 테스트 지원 |
+| HTTP 클라이언트 | ![httpx](https://img.shields.io/badge/httpx-0.27.0-0096D6?style=flat-square) | 0.27.0 | 비동기 환경에서의 HTTP 요청 및 테스트 처리 |
 
 ---
 
@@ -160,25 +161,25 @@
 #### 클라우드 서비스 (AWS)
 | 역할 | 기술 | 설명 |
 |------|------|------|
-| 컴퓨팅 | ![AWS EC2](https://img.shields.io/badge/AWS_EC2-FF9900?style=flat-square&logo=amazon-ec2&logoColor=white) | Spring Boot 애플리케이션 배포 |
-| 스토리지 | ![AWS S3](https://img.shields.io/badge/AWS_S3-569A31?style=flat-square&logo=amazon-s3&logoColor=white) | 정적 파일 호스팅 및 이미지 저장 |
-| 데이터베이스 | ![AWS RDS](https://img.shields.io/badge/AWS_RDS-527FFF?style=flat-square&logo=amazon-rds&logoColor=white) | MariaDB 관리형 서비스 |
-| 컨테이너 관리 | ![AWS EKS](https://img.shields.io/badge/AWS_EKS-FF9900?style=flat-square&logo=amazon-eks&logoColor=white) | Kubernetes 클러스터 관리 |
+| 컴퓨팅 | ![AWS EC2](https://img.shields.io/badge/AWS_EC2-FF9900?style=flat-square&logo=amazon-ec2&logoColor=white) | Spring Boot 애플리케이션을 배포하기 위한 가상 서버 |
+| 스토리지 | ![AWS S3](https://img.shields.io/badge/AWS_S3-569A31?style=flat-square&logo=amazon-s3&logoColor=white) | 정적 파일 호스팅 및 이미지, 데이터 저장을 위한 객체 스토리지 |
+| 데이터베이스 | ![AWS RDS](https://img.shields.io/badge/AWS_RDS-527FFF?style=flat-square&logo=amazon-rds&logoColor=white) | MariaDB를 위한 관리형 관계형 데이터베이스 서비스 |
+| 컨테이너 관리 | ![AWS EKS](https://img.shields.io/badge/AWS_EKS-FF9900?style=flat-square&logo=amazon-eks&logoColor=white) | Kubernetes 클러스터를 쉽게 관리할 수 있도록 지원하는 서비스 |
 
 #### 컨테이너 & 오케스트레이션
 | 역할 | 기술 | 설명 |
 |------|------|------|
-| 컨테이너화 | ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white) | 애플리케이션 컨테이너화 |
-| 오케스트레이션 | ![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=flat-square&logo=kubernetes&logoColor=white) | 컨테이너 배포 및 관리 |
+| 컨테이너화 | ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white) | 애플리케이션과 모든 종속성을 컨테이너로 패키징하여 환경 일관성 확보 |
+| 오케스트레이션 | ![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=flat-square&logo=kubernetes&logoColor=white) | 컨테이너화된 워크로드와 서비스를 자동 배포, 확장, 관리 |
 
 #### CI/CD & IaC
 | 역할 | 기술 | 설명 |
 |------|------|------|
-| CI/CD | ![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=flat-square&logo=github-actions&logoColor=white) | 자동화된 빌드/테스트/배포 파이프라인 |
-| CI/CD | ![Jenkins](https://img.shields.io/badge/Jenkins-D24939?style=flat-square&logo=jenkins&logoColor=white) | 지속적 통합 및 배포 자동화 |
-| IaC | ![Terraform](https://img.shields.io/badge/Terraform-7B42BC?style=flat-square&logo=terraform&logoColor=white) | 인프라 코드화 및 자동 프로비저닝 |
-| 이슈 관리 | ![GitHub Issues](https://img.shields.io/badge/GitHub_Issues-181717?style=flat-square&logo=github&logoColor=white) | 이슈 템플릿 기반 작업 관리 (bug, feature, chore, docs 등) |
-| PR 관리 | ![GitHub PR](https://img.shields.io/badge/Pull_Request-181717?style=flat-square&logo=github&logoColor=white) | PR 템플릿 기반 코드 리뷰 프로세스 |
+| CI/CD 자동화 | ![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=flat-square&logo=github-actions&logoColor=white) | 코드 푸시 시 자동으로 빌드, 테스트를 수행하는 CI/CD 파이프라인 |
+| CI/CD 서버 | ![Jenkins](https://img.shields.io/badge/Jenkins-D24939?style=flat-square&logo=jenkins&logoColor=white) | 복잡한 빌드 및 배포 워크플로우를 자동화하고 관리하는 서버 |
+| IaC (인프라 코드) | ![Terraform](https://img.shields.io/badge/Terraform-7B42BC?style=flat-square&logo=terraform&logoColor=white) | 인프라를 코드로 정의하고 관리하여 일관성 있고 재현 가능한 환경을 구축 |
+| 이슈 관리 | ![GitHub Issues](https://img.shields.io/badge/GitHub_Issues-181717?style=flat-square&logo=github&logoColor=white) | 이슈 템플릿 기반으로 버그, 기능, 작업 등을 체계적으로 관리 |
+| PR 관리 | ![GitHub PR](https://img.shields.io/badge/Pull_Request-181717?style=flat-square&logo=github&logoColor=white) | PR 템플릿을 활용하여 구조화된 코드 리뷰 프로세스를 시행 |
 
 ---
 
@@ -187,31 +188,31 @@
 #### IDE & 에디터
 | 역할 | 기술 | 설명 |
 |------|------|------|
-| Java IDE | ![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ_IDEA-000000?style=flat-square&logo=intellij-idea&logoColor=white) | 백엔드 개발 통합 환경 |
-| AI 코드 에디터 | ![Kiro](https://img.shields.io/badge/Kiro-4A90E2?style=flat-square) | AI 기반 코드 에디터 |
-| AI 코드 에디터 | ![Cursor](https://img.shields.io/badge/Cursor-000000?style=flat-square) | AI 페어 프로그래밍 에디터 |
+| Java IDE | ![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ_IDEA-000000?style=flat-square&logo=intellij-idea&logoColor=white) | Java 기반 백엔드 개발에 최적화된 통합 개발 환경 |
+| AI 코드 에디터 | ![Kiro](https://img.shields.io/badge/Kiro-4A90E2?style=flat-square) | AI 기술을 활용하여 코드 작성 및 개발을 지원하는 에디터 |
+| AI 코드 에디터 | ![Cursor](https://img.shields.io/badge/Cursor-000000?style=flat-square) | AI 기반의 채팅 및 코드 생성 기능을 제공하는 페어 프로그래밍 에디터 |
 
 #### 운영 체제
 | 역할 | 기술 | 설명 |
 |------|------|------|
-| OS | ![Windows](https://img.shields.io/badge/Windows-0078D6?style=flat-square&logo=windows&logoColor=white) | 개발 환경 |
-| OS | ![macOS](https://img.shields.io/badge/macOS-000000?style=flat-square&logo=apple&logoColor=white) | 개발 환경 |
+| OS | ![Windows](https://img.shields.io/badge/Windows-0078D6?style=flat-square&logo=windows&logoColor=white) | 프로젝트 개발에 사용되는 주요 운영 체제 |
+| OS | ![macOS](https://img.shields.io/badge/macOS-000000?style=flat-square&logo=apple&logoColor=white) | 프로젝트 개발에 사용되는 주요 운영 체제 |
 
 #### 브라우저
 | 역할 | 기술 | 설명 |
 |------|------|------|
-| 브라우저 | ![Chrome](https://img.shields.io/badge/Chrome-4285F4?style=flat-square&logo=google-chrome&logoColor=white) | 프론트엔드 개발 및 테스트 |
+| 브라우저 | ![Chrome](https://img.shields.io/badge/Chrome-4285F4?style=flat-square&logo=google-chrome&logoColor=white) | 프론트엔드 개발, 디버깅 및 사용자 경험 테스트에 사용되는 표준 브라우저 |
 
 ---
 
 ### Collaboration Tools
 
-| 역할 | 기술 | 설명 |
-|------|------|------|
-| 버전 관리 | ![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white) | 소스 코드 버전 관리 |
-| 코드 호스팅 | ![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white) | 코드 저장소 및 협업 |
-| 커뮤니케이션 | ![Discord](https://img.shields.io/badge/Discord-5865F2?style=flat-square&logo=discord&logoColor=white) | 팀 실시간 소통 |
-
+#### 협업 도구
+| 역할 | 기술                                                                                                     | 설명 |
+|------|--------------------------------------------------------------------------------------------------------|------|
+| 버전 관리 시스템 | ![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)             | 소스 코드의 이력 관리를 분산하여 처리하는 시스템 |
+| 코드 호스팅 | ![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)    | Git 저장소 호스팅, 코드 리뷰, PR 관리 등을 위한 협업 플랫폼 |
+| 커뮤니케이션 | ![Discord](https://img.shields.io/badge/Discord-5865F2?style=flat-square&logo=discord&logoColor=white) | 팀원 간의 실시간 소통, 회의 및 정보 공유를 위한 메신저 |
 ---
 
 * **Java 17**
@@ -354,10 +355,11 @@
 
 ## 변경 이력
 
-| 버전         | 날짜             | 변경 내용                       | 작성자 |
-|:-----------|:---------------|:----------------------------|:----|
-| **v0.1**   | **2025.10.10** | **기술 스택 초안 작성**             | 송민재 |
-| **v0.2**   | **2025.10.10** | **기술 스택 폴더 이동 및 오기재 사항 수정** | 송민재 |
-| **v1.0.0** | **2025.10.10** | **문서 버전 업데이트**              | 송민재 |
-| **v1.1.0** | **2025.10.28** | ** 최신 버전 업데이트** | 고동현 |
+| 버전         | 날짜             | 변경 내용                         | 작성자 |
+|:-----------|:---------------|:------------------------------|:----|
+| **v0.1**   | **2025.10.10** | **기술 스택 초안 작성**               | 송민재 |
+| **v0.2**   | **2025.10.10** | **기술 스택 폴더 이동 및 오기재 사항 수정**   | 송민재 |
+| **v1.0.0** | **2025.10.10** | **문서 버전 업데이트**                | 송민재 |
+| **v1.1.0** | **2025.10.28** | ** 최신 버전 업데이트**               | 고동현 |
+| **v1.1.0** | **2025.10.29** | ** 기술 스택 설명문 수정. js뱃지 색상 변경** | 송민재 |
 
