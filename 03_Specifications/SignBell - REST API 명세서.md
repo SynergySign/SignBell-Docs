@@ -1,11 +1,11 @@
-# Signbell 일반 API 명세서
+# Signbell REST API 명세서
 
 본 문서는 SignBell 서비스의 RESTful API를 사용하는 개발자를 위한 공식 기술 명세서입니다.
 
 * **작성자**: [신동준](https://github.com/sdj3959)
 * **작성일**: 2025-10-08
-* **최종 수정일**: 2025-10-21
-* **문서 버전**: v2.0.0
+* **최종 수정일**: 2025-10-29
+* **문서 버전**: v2.1.0
 
 **대상 독자:**
 
@@ -112,9 +112,106 @@
 
 ---
 
-## 2. 사용자 프로필 (User Profile)
+## 2. 사용자 정보 조회 (User Information)
 
-### 2.1. 내 프로필 조회
+### 2.1. 내 정보 조회
+
+- **Endpoint**: `GET /api/users/me`
+- **설명**: 현재 로그인한 사용자의 전체 정보를 조회합니다. 프로필 정보뿐만 아니라 인증 관련 정보와 누적 점수를 포함합니다.
+- **인증**: **필수**
+- **요청**:
+  - 별도의 파라미터 없음 (인증 토큰에서 사용자 식별)
+- **응답 (200 OK)**:
+  - **Body**: `ApiResponse<UserInfoResponse>`
+  - **JSON 응답 예시**:
+    ```json
+    {
+      "success": true,
+      "message": "사용자의 정보가 성공적으로 조회되었습니다.",
+      "timestamp": "2025-10-29T12:00:00.123Z",
+      "data": {
+        "userId": 1,
+        "nickname": "수어마스터",
+        "profileImageUrl": "http://k.kakaocdn.net/dn/jnklU/btsPFZKQSrJ/aHNecgxEqPLdnpIVw9ZR0K/img_640x640.jpg",
+        "providerId": "123456789",
+        "provider": "KAKAO",
+        "email": "user@example.com",
+        "requiredAgree": true,
+        "optionalAgree": true,
+        "totalScore": 1500
+      }
+    }
+    ```
+  - **상세 스펙 (`data`)**:
+
+    | 필드 | 타입 | 설명 |
+              |---|---|---|
+    | `userId` | `Long` | 사용자 고유 ID |
+    | `nickname` | `String` | 닉네임 |
+    | `profileImageUrl` | `String` | 프로필 이미지 URL |
+    | `providerId` | `String` | OAuth 제공자의 사용자 ID |
+    | `provider` | `String` | 로그인 제공자 (KAKAO, GOOGLE 등) |
+    | `email` | `String` | 이메일 주소 |
+    | `requiredAgree` | `Boolean` | 필수 약관 동의 여부 |
+    | `optionalAgree` | `Boolean` | 선택 약관 동의 여부 (학습 데이터 수집 동의) |
+    | `totalScore` | `Long` | 누적 점수 |
+- **오류**:
+  - `400 Bad Request`: 잘못된 사용자 ID 형식
+  - `401 Unauthorized`: `UNAUTHORIZED` (인증 정보 없음 또는 유효하지 않음)
+  - `404 Not Found`: `USER_NOT_FOUND` (해당 사용자 없음)
+  - `500 Internal Server Error`: 서버 내부 오류
+
+---
+
+## 3. 사용자 랭킹 (User Ranking)
+
+### 3.1. 랭킹 조회
+
+- **Endpoint**: `GET /api/users/rank`
+- **설명**: 누적 점수(totalScore) 기준 상위 8명의 사용자 랭킹을 조회합니다.
+- **인증**: **필수**
+- **요청**:
+  - 별도의 파라미터 없음
+- **응답 (200 OK)**:
+  - **Body**: `ApiResponse<List<UserRankResponse>>`
+  - **JSON 응답 예시**:
+    ```json
+    {
+      "success": true,
+      "message": "랭킹 조회에 성공했습니다.",
+      "timestamp": "2025-10-29T12:01:00.456Z",
+      "data": [
+        {
+          "rank": 1,
+          "nickname": "랭킹1위",
+          "score": 5000,
+          "profileImage": "http://example.com/profile1.jpg"
+        },
+        {
+          "rank": 2,
+          "nickname": "랭킹2위",
+          "score": 4500,
+          "profileImage": "http://example.com/profile2.jpg"
+        }
+      ]
+    }
+    ```
+  - **상세 스펙 (`data` 배열의 각 요소)**:
+
+    | 필드 | 타입 | 설명 |
+              |---|---|---|
+    | `rank` | `Integer` | 사용자 순위 (1~8) |
+    | `nickname` | `String` | 닉네임 |
+    | `score` | `Long` | 누적 점수 |
+    | `profileImage` | `String` | 프로필 이미지 URL (nullable) |
+- **오류**:
+  - `500 Internal Server Error`: `DATABASE_ERROR` (데이터베이스 조회 실패)
+
+---
+
+## 4. 마이페이지 - 프로필 관리 (My Page - Profile Management)
+
+### 4.1. 내 프로필 조회
 
 - **Endpoint**: `GET /api/my-page/users/{userId}/profile`
 - **설명**: 현재 로그인한 사용자의 상세 프로필 정보를 조회합니다. `userId`는 현재 인증된 사용자의 ID여야 합니다.
@@ -151,7 +248,7 @@
     - `403 Forbidden`: `FORBIDDEN` (요청한 userId와 로그인 사용자 불일치)
     - `404 Not Found`: `USER_NOT_FOUND` (해당 ID의 사용자 없음)
 
-### 2.2. 내 프로필 수정
+### 4.2. 내 프로필 수정
 
 - **Endpoint**: `PATCH /api/my-page/users/{userId}/profile`
 - **설명**: 현재 로그인한 사용자의 프로필 정보를 수정합니다. `userId`는 현재 인증된 사용자의 ID여야 합니다.
@@ -203,7 +300,104 @@
     - `404 Not Found`: `USER_NOT_FOUND` (해당 ID의 사용자 없음)
     - `409 Conflict`: `NICKNAME_ALREADY_EXISTS` (이미 사용 중인 닉네임)
 
----
+### 4.3. 닉네임 변경
+
+- **Endpoint**: `PATCH /api/my-page/users/{userId}/nickname`
+- **설명**: 현재 로그인한 사용자의 닉네임만 변경합니다. 프로필 전체 수정(3.2)과 달리 닉네임만 부분 업데이트합니다.
+- **인증**: **필수**
+- **요청**:
+  - **Path Parameter**:
+    | 이름 | 타입 | 필수 | 설명 |
+    |---|---|---|---|
+    | `userId` | `Long` | 필수 | 수정할 사용자 고유 ID (현재 로그인된 사용자) |
+  - **Body (`application/json`)**:
+    ```json
+    {
+      "nickname": "새로운닉네임"
+    }
+    ```
+  - **상세 스펙 (Request Body)**:
+
+    | 필드 | 타입 | 필수 | 제약사항 | 설명 |
+              |---|---|---|---|---|
+    | `nickname` | `String` | 필수 | 1~10자, 공백 불가 | 변경할 닉네임 |
+- **응답 (200 OK)**:
+  - **Body**: `ApiResponse<UserProfileResponse>`
+  - **JSON 응답 예시**:
+    ```json
+    {
+      "success": true,
+      "message": "닉네임 변경 성공",
+      "timestamp": "2025-10-29T12:04:00.456Z",
+      "data": {
+        "nickname": "새로운닉네임",
+        "profileImageUrl": "http://k.kakaocdn.net/dn/jnklU/btsPFZKQSrJ/aHNecgxEqPLdnpIVw9ZR0K/img_640x640.jpg",
+        "optionalAgree": true
+      }
+    }
+    ```
+  - **상세 스펙 (`data`)**:
+
+    | 필드 | 타입 | 설명 |
+              |---|---|---|
+    | `nickname` | `String` | 변경된 닉네임 |
+    | `profileImageUrl` | `String` | 프로필 이미지 URL |
+    | `optionalAgree` | `Boolean` | 선택 약관 동의 여부 |
+- **오류**:
+  - `400 Bad Request`: `VALIDATION_ERROR` (닉네임 길이 제약 위반 등 유효성 검사 실패)
+  - `401 Unauthorized`: `UNAUTHORIZED` (인증 정보 없음 또는 유효하지 않음)
+  - `403 Forbidden`: `FORBIDDEN` (요청한 userId와 로그인 사용자 불일치)
+  - `404 Not Found`: `USER_NOT_FOUND` (해당 ID의 사용자 없음)
+  - `409 Conflict`: `NICKNAME_ALREADY_EXISTS` (이미 사용 중인 닉네임)
+
+### 4.4. 약관 동의 처리
+
+- **Endpoint**: `PATCH /api/my-page/users/{userId}/terms-agreement`
+- **설명**: 사용자의 약관 동의를 처리합니다. 필수 약관(requiredAgree)은 자동으로 true로 설정되며, 선택 약관(optionalAgree)은 요청값에 따라 설정됩니다.
+- **인증**: **필수**
+- **요청**:
+  - **Path Parameter**:
+    | 이름 | 타입 | 필수 | 설명 |
+    |---|---|---|---|
+    | `userId` | `Long` | 필수 | 약관 동의를 처리할 사용자 고유 ID (현재 로그인된 사용자) |
+  - **Body (`application/json`)**:
+    ```json
+    {
+      "optionalAgree": true
+    }
+    ```
+  - **상세 스펙 (Request Body)**:
+
+    | 필드 | 타입 | 필수 | 설명 |
+              |---|---|---|---|
+    | `optionalAgree` | `Boolean` | 선택 | 선택 약관 동의 여부 (학습 데이터 수집 동의). null인 경우 기존 값 유지 |
+- **응답 (200 OK)**:
+  - **Body**: `ApiResponse<UserProfileResponse>`
+  - **JSON 응답 예시**:
+    ```json
+    {
+      "success": true,
+      "message": "약관 동의 처리 성공",
+      "timestamp": "2025-10-29T12:05:00.789Z",
+      "data": {
+        "nickname": "수어마스터",
+        "profileImageUrl": "http://k.kakaocdn.net/dn/jnklU/btsPFZKQSrJ/aHNecgxEqPLdnpIVw9ZR0K/img_640x640.jpg",
+        "optionalAgree": true
+      }
+    }
+    ```
+  - **상세 스펙 (`data`)**:
+
+    | 필드 | 타입 | 설명 |
+              |---|---|---|
+    | `nickname` | `String` | 닉네임 |
+    | `profileImageUrl` | `String` | 프로필 이미지 URL |
+    | `optionalAgree` | `Boolean` | 업데이트된 선택 약관 동의 여부 |
+- **오류**:
+  - `401 Unauthorized`: `UNAUTHORIZED` (인증 정보 없음 또는 유효하지 않음)
+  - `403 Forbidden`: `FORBIDDEN` (요청한 userId와 로그인 사용자 불일치)
+  - `404 Not Found`: `USER_NOT_FOUND` (해당 ID의 사용자 없음)
+
 
 ---
 
@@ -356,7 +550,7 @@
 
 - **Endpoint**: `GET /api/sign-edu/categories`
 - **설명**: 수어 단어의 모든 카테고리(태그) 목록을 중복 없이 조회합니다.
-- **인증**: **필수** (추후 적용 예정)
+- **인증**: **필수**
 - **요청**: 없음
 - **응답 (200 OK)**:
     - **Body**: `ApiResponse<List<String>>`
@@ -382,16 +576,30 @@
 ### 4.2. 수어 단어 목록 조회
 
 - **Endpoint**: `GET /api/sign-edu`
-- **설명**: 모든 수어 단어 또는 특정 카테고리의 수어 단어 목록을 페이징하여 조회합니다.
-- **인증**: **필수** (추후 적용 예정)
+- **설명**: 모든 수어 단어 또는 특정 카테고리의 수어 단어 목록을 페이징하여 조회합니다. 키워드 검색 기능을 지원합니다.
+- **인증**: **필수**
 - **요청**:
     - **Query Parameters**:
       | 이름 | 타입 | 필수 | 기본값 | 설명 |
       |---|---|---|---|---|
-      | `category` | `String` | 선택 | - | 조회할 카테고리명 (미입력 시 전체 조회) |
+      | `category` | `String` | 선택 | - | 조회할 카테고리명 (미입력 또는 "전체" 입력 시 전체 조회) |
+      | `keyword` | `String` | 선택 | - | 검색할 단어명 (부분 일치 검색) |
       | `page` | `Integer` | 선택 | `0` | 페이지 번호 (0부터 시작) |
       | `size` | `Integer` | 선택 | `20` | 페이지당 항목 수 |
       | `sort` | `String` | 선택 | `title` | 정렬 기준 필드 |
+
+- **검색 우선순위**:
+    - `keyword` 파라미터가 있는 경우, 다음 우선순위로 정렬됩니다:
+      1. **완전 일치**: 단어명이 키워드와 정확히 일치
+      2. **앞부분 일치**: 단어명이 키워드로 시작
+      3. **부분 일치**: 단어명에 키워드가 포함
+    - 같은 우선순위 내에서는 단어명 가나다순(오름차순)으로 정렬됩니다.
+    - `keyword`가 없는 경우, 기본 정렬은 `title`(단어명) 오름차순입니다.
+
+- **파라미터 우선순위**:
+    - `keyword` > `category` > 전체 조회
+    - `keyword`가 있으면 `category`는 무시됩니다.
+
 - **응답 (200 OK)**:
     - **Body**: `ApiResponse<Page<SignSimpleResponseDto>>`
     - **JSON 응답 예시**:
@@ -466,17 +674,23 @@
 - **요청 예시**:
     - 전체 조회: `GET /api/sign-edu?page=0&size=20`
     - 카테고리별 조회: `GET /api/sign-edu?category=삶&page=0&size=20`
+    - 키워드 검색: `GET /api/sign-edu?keyword=감사&page=0&size=20`
+    - 키워드 검색 (카테고리는 무시됨): `GET /api/sign-edu?keyword=감사&category=삶&page=0`
+
 - **참고**:
     - 존재하지 않는 카테고리로 조회 시 빈 페이지(`content: []`)를 반환합니다.
-    - 기본 정렬 기준은 `title`(단어명) 오름차순입니다.
+    - `keyword` 검색 시 부분 일치(LIKE '%keyword%')로 검색되며, 결과는 관련성 순으로 정렬됩니다.
+    - `category`에 "전체"를 입력하거나 빈 값을 보내면 전체 조회가 됩니다.
+    - 키워드 검색 결과는 QueryDSL의 CaseBuilder를 사용하여 최적화된 정렬을 제공합니다.
+
 - **오류**:
-    - `401 Unauthorized`: `UNAUTHORIZED` (인증 정보 없음)
+  - `401 Unauthorized`: `UNAUTHORIZED` (인증 정보 없음 또는 유효하지 않음)
 
 ### 4.3. 수어 단어 상세 조회
 
 - **Endpoint**: `GET /api/sign-edu/{signId}`
-- **설명**: 특정 수어 단어의 상세 정보를 조회합니다.
-- **인증**: **필수** (추후 적용 예정)
+- **설명**: 특정 수어 단어의 상세 정보를 조회합니다. 단어명, 설명, 영상 URL, 카테고리 정보를 포함합니다.
+- **인증**: **필수**
 - **요청**:
     - **Path Parameter**:
       | 이름 | 타입 | 필수 | 설명 |
@@ -765,7 +979,8 @@
 
 ## 변경 이력
 
-| 버전     | 날짜         | 변경 내용                   | 작성자 |
-|--------|------------|-------------------------|-----|
-| v1.0.0 | 2025.10.08 | 초기 문서 작성                | 신동준 |
-| v2.0.0 | 2025.10.21 | 백엔드 코드 기반으로 API 명세서 현행화 | 강관주 |
+| 버전     | 날짜         | 변경 내용                                 | 작성자 |
+|--------|------------|---------------------------------------|-----|
+| v1.0.0 | 2025.10.08 | 초기 문서 작성                              | 신동준 |
+| v2.0.0 | 2025.10.21 | 백엔드 코드 기반으로 API 명세서 현행화               | 강관주 |
+| v2.1.0 | 2025.10.29 | 사용자 정보 조회 API, 사용자 랭킹 API 추가 및 문서 재구성 | 강관주 |
