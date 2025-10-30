@@ -8,7 +8,7 @@
 
 **최초 작성일** 2025.10.10
 
-**최종 수정일:** 2025.10.28
+**최종 수정일:** 2025.10.30
 
 **대상 독자:**
 - **내부 개발팀 (FE/BE/AI)**: 프로젝트의 기술 표준, 라이브러리 버전 및 환경 종속성을 확인하고 준수해야 하는 모든 개발자
@@ -165,6 +165,14 @@
 | 스토리지 | ![AWS S3](https://img.shields.io/badge/AWS_S3-569A31?style=flat-square&logo=amazon-s3&logoColor=white) | 정적 파일 호스팅 및 이미지, 데이터 저장을 위한 객체 스토리지 |
 | 데이터베이스 | ![AWS RDS](https://img.shields.io/badge/AWS_RDS-527FFF?style=flat-square&logo=amazon-rds&logoColor=white) | MariaDB를 위한 관리형 관계형 데이터베이스 서비스 |
 | 컨테이너 관리 | ![AWS EKS](https://img.shields.io/badge/AWS_EKS-FF9900?style=flat-square&logo=amazon-eks&logoColor=white) | Kubernetes 클러스터를 쉽게 관리할 수 있도록 지원하는 서비스 |
+| CDN | ![AWS CloudFront](https://img.shields.io/badge/AWS_CloudFront-FF9900?style=flat-square&logo=amazon-cloudfront&logoColor=white) | 콘텐츠 전송 네트워크를 통한 빠른 정적 파일 제공 |
+| 보안 | ![AWS IAM](https://img.shields.io/badge/AWS_IAM-DD344C?style=flat-square&logo=amazon-aws&logoColor=white) | AWS 리소스에 대한 액세스 제어 및 권한 관리 |
+| 인프라 관리 | ![AWS CloudFormation](https://img.shields.io/badge/AWS_CloudFormation-FF9900?style=flat-square&logo=amazon-aws&logoColor=white) | AWS 인프라를 코드로 정의하고 자동 프로비저닝 |
+| 인증서 관리 | ![AWS ACM](https://img.shields.io/badge/AWS_ACM-FF9900?style=flat-square&logo=amazon-aws&logoColor=white) | HTTPS/SSL/TLS 인증서 자동 발급 및 관리 |
+| 네트워크 | ![AWS VPC](https://img.shields.io/badge/AWS_VPC-FF9900?style=flat-square&logo=amazon-aws&logoColor=white) | 격리된 가상 네트워크 환경 구성 |
+| 컨테이너 레지스트리 | ![AWS ECR](https://img.shields.io/badge/AWS_ECR-FF9900?style=flat-square&logo=amazon-aws&logoColor=white) | Docker 이미지 저장 및 관리 |
+| DNS | ![AWS Route 53](https://img.shields.io/badge/AWS_Route_53-8C4FFF?style=flat-square&logo=amazon-route53&logoColor=white) | 도메인 네임 시스템 및 DNS 라우팅 관리 |
+| 로드밸런서 | ![AWS ELB](https://img.shields.io/badge/AWS_ELB-FF9900?style=flat-square&logo=amazon-aws&logoColor=white) | EKS를 통한 트래픽 분산 및 고가용성 보장 |
 
 #### 컨테이너 & 오케스트레이션
 | 역할 | 기술 | 설명 |
@@ -172,12 +180,10 @@
 | 컨테이너화 | ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white) | 애플리케이션과 모든 종속성을 컨테이너로 패키징하여 환경 일관성 확보 |
 | 오케스트레이션 | ![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=flat-square&logo=kubernetes&logoColor=white) | 컨테이너화된 워크로드와 서비스를 자동 배포, 확장, 관리 |
 
-#### CI/CD & IaC
+#### CI/CD
 | 역할 | 기술 | 설명 |
 |------|------|------|
-| CI/CD 자동화 | ![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=flat-square&logo=github-actions&logoColor=white) | 코드 푸시 시 자동으로 빌드, 테스트를 수행하는 CI/CD 파이프라인 |
 | CI/CD 서버 | ![Jenkins](https://img.shields.io/badge/Jenkins-D24939?style=flat-square&logo=jenkins&logoColor=white) | 복잡한 빌드 및 배포 워크플로우를 자동화하고 관리하는 서버 |
-| IaC (인프라 코드) | ![Terraform](https://img.shields.io/badge/Terraform-7B42BC?style=flat-square&logo=terraform&logoColor=white) | 인프라를 코드로 정의하고 관리하여 일관성 있고 재현 가능한 환경을 구축 |
 | 이슈 관리 | ![GitHub Issues](https://img.shields.io/badge/GitHub_Issues-181717?style=flat-square&logo=github&logoColor=white) | 이슈 템플릿 기반으로 버그, 기능, 작업 등을 체계적으로 관리 |
 | PR 관리 | ![GitHub PR](https://img.shields.io/badge/Pull_Request-181717?style=flat-square&logo=github&logoColor=white) | PR 템플릿을 활용하여 구조화된 코드 리뷰 프로세스를 시행 |
 
@@ -339,17 +345,17 @@
 
   여러 개발자가 소스 코드를 공동 작업하고 소통하는 데 사용되는 협업 도구입니다.
 
-* **GitHub Actions, Jenkins, Terraform**
+* **Jenkins, AWS CloudFormation**
 
-  GitHub Actions는 코드 푸시 시 자동으로 빌드, 테스트, 배포를 수행하는 CI/CD 파이프라인을 제공합니다. Jenkins는 복잡한 빌드 및 배포 워크플로우를 관리하며, Terraform은 AWS 인프라를 코드로 정의하고 자동으로 프로비저닝하여 인프라 관리의 일관성과 재현성을 보장합니다.
+  Jenkins는 GitHub Webhook을 통해 코드 푸시 시 자동으로 빌드, 테스트, 배포를 수행하는 CI/CD 파이프라인을 제공하며, 복잡한 빌드 및 배포 워크플로우를 관리합니다. AWS CloudFormation은 AWS 인프라를 코드로 정의하고 자동으로 프로비저닝하여 인프라 관리의 일관성과 재현성을 보장합니다.
 
 * **Docker, Kubernetes (AWS EKS)**
 
   Docker는 애플리케이션을 컨테이너로 패키징하여 환경 독립성을 제공하고, Kubernetes는 AWS EKS를 통해 컨테이너의 배포, 스케일링, 관리를 자동화합니다.
 
-* **AWS EC2, S3, RDS**
+* **AWS EC2, S3, RDS, CloudFront, IAM, VPC, ECR, Route 53, ACM, ELB**
 
-  EC2는 Spring Boot 애플리케이션을 호스팅하고, S3는 정적 파일 및 이미지를 저장하며, RDS는 MariaDB를 관리형 서비스로 제공하여 데이터베이스 운영을 간소화합니다.
+  EC2는 Spring Boot 애플리케이션을 호스팅하고, S3는 정적 파일 및 이미지를 저장하며, RDS는 MariaDB를 관리형 서비스로 제공하여 데이터베이스 운영을 간소화합니다. CloudFront는 CDN을 통해 빠른 콘텐츠 전송을 제공하고, IAM은 AWS 리소스 접근 권한을 관리합니다. VPC는 격리된 네트워크 환경을 구성하고, ECR은 Docker 이미지를 저장하며, Route 53은 DNS 라우팅을 관리합니다. ACM은 HTTPS/SSL/TLS 인증서를 자동으로 발급 및 관리하고, ELB는 EKS를 통한 트래픽 분산과 고가용성을 보장합니다.
 
 ---
 
@@ -362,4 +368,4 @@
 | **v1.0.0** | **2025.10.10** | **문서 버전 업데이트**                | 송민재 |
 | **v1.1.0** | **2025.10.28** | ** 최신 버전 업데이트**               | 고동현 |
 | **v1.1.0** | **2025.10.29** | ** 기술 스택 설명문 수정. js뱃지 색상 변경** | 송민재 |
-
+| **v1.2.0** | **2025.10.30** | **인프라 섹션 업데이트 (CloudFront, IAM, CloudFormation, ACM, VPC, ECR, Route 53, ELB 추가, Terraform 및 GitHub Actions 제거)** | 강관주 |
