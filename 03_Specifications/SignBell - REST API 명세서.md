@@ -22,7 +22,7 @@
 
 ### 1.1. 기본 정보
 
-- **Base URL**: `https://localhost:9000/api`
+- **Base URL**: `https://localhost:9000/api` (개발 환경 기준)
 
 ### 1.2. 인증
 
@@ -31,7 +31,7 @@
 - **쿠키 설정**:
     - `HttpOnly`: `true` (JavaScript 접근 차단으로 XSS 공격 방지)
     - `Secure`: 개발 환경에서는 `false`, 프로덕션에서는 `true` (HTTPS 연결에서만 전송)
-    - `SameSite`: `Lax` (CSRF 공격 방지)
+    - `SameSite`: `None` (크로스 도메인 허용)
     - `Domain`: `localhost` (개발 환경 기준)
 - **액세스 토큰**:
     - 쿠키명: `ACCESS_TOKEN`
