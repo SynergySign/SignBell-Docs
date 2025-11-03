@@ -53,10 +53,10 @@ CloudFront      ALB                         ALB
 
 | 구분 | 기술 |
 |------|------|
-| **Frontend** | React 18 + Vite |
-| **Backend** | Spring Boot 3.x + Java 17 |
-| **AI Server** | FastAPI + Python 3.11 + Janus WebRTC |
-| **Database** | MariaDB (RDS) |
+| **Frontend** | React 19.1.x + Vite |
+| **Backend** | Spring Boot 3.5.x + Java 17 |
+| **AI Server** | FastAPI + Python 3.10 + Janus WebRTC |
+| **Database** | MariaDB 10.11.x (RDS) |
 | **Container** | Docker + Kubernetes (EKS) |
 | **CI/CD** | Jenkins |
 | **Infra** | AWS (EKS, ECR, S3, CloudFront, ALB, RDS) |
