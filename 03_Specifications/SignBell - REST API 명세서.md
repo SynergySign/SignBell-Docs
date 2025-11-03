@@ -145,7 +145,7 @@
   - **상세 스펙 (`data`)**:
 
     | 필드 | 타입 | 설명 |
-              |---|---|---|
+     |---|---|---|         
     | `userId` | `Long` | 사용자 고유 ID |
     | `nickname` | `String` | 닉네임 |
     | `profileImageUrl` | `String` | 프로필 이미지 URL |
@@ -199,7 +199,7 @@
   - **상세 스펙 (`data` 배열의 각 요소)**:
 
     | 필드 | 타입 | 설명 |
-              |---|---|---|
+      |---|---|---|        
     | `rank` | `Integer` | 사용자 순위 (1~8) |
     | `nickname` | `String` | 닉네임 |
     | `score` | `Long` | 누적 점수 |
@@ -319,7 +319,7 @@
   - **상세 스펙 (Request Body)**:
 
     | 필드 | 타입 | 필수 | 제약사항 | 설명 |
-              |---|---|---|---|---|
+    |---|---|---|---|---|          
     | `nickname` | `String` | 필수 | 1~10자, 공백 불가 | 변경할 닉네임 |
 - **응답 (200 OK)**:
   - **Body**: `ApiResponse<UserProfileResponse>`
@@ -339,7 +339,7 @@
   - **상세 스펙 (`data`)**:
 
     | 필드 | 타입 | 설명 |
-              |---|---|---|
+   |---|---|---|    
     | `nickname` | `String` | 변경된 닉네임 |
     | `profileImageUrl` | `String` | 프로필 이미지 URL |
     | `optionalAgree` | `Boolean` | 선택 약관 동의 여부 |
@@ -369,7 +369,7 @@
   - **상세 스펙 (Request Body)**:
 
     | 필드 | 타입 | 필수 | 설명 |
-              |---|---|---|---|
+    |---|---|---|---|
     | `optionalAgree` | `Boolean` | 선택 | 선택 약관 동의 여부 (학습 데이터 수집 동의). null인 경우 기존 값 유지 |
 - **응답 (200 OK)**:
   - **Body**: `ApiResponse<UserProfileResponse>`
@@ -389,7 +389,7 @@
   - **상세 스펙 (`data`)**:
 
     | 필드 | 타입 | 설명 |
-              |---|---|---|
+    |---|---|---|
     | `nickname` | `String` | 닉네임 |
     | `profileImageUrl` | `String` | 프로필 이미지 URL |
     | `optionalAgree` | `Boolean` | 업데이트된 선택 약관 동의 여부 |
